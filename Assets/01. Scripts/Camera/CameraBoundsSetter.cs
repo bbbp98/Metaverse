@@ -21,7 +21,5 @@ public class CameraBoundsSetter : MonoBehaviour
         cameraFollow.minPosition = bounds.min + offSet;
         cameraFollow.maxposition = bounds.max - offSet;
         cameraFollow.maxposition.y -= tilemap.cellSize.y * 0.75f;
-
-        Debug.Log(cameraFollow.maxposition);
     }
 }

@@ -19,6 +19,7 @@ public class BaseController : MonoBehaviour
     private float knockbackDuration = 0.0f;
 
     protected AnimationHandler animationHandler;
+    protected StatHandler statHandler;
 
     protected bool isAttacking;
     //private float timeSinceLastAttack = float.MaxValue;
@@ -26,7 +27,9 @@ public class BaseController : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+
         animationHandler = GetComponent<AnimationHandler>();
+        statHandler = GetComponent<StatHandler>();
     }
 
     protected virtual void Start()
@@ -38,7 +41,7 @@ public class BaseController : MonoBehaviour
     {
         HandleAction();
         Rotate(lookDirection);
-        //HandleAttackDelay();
+        HandleAttackDelay();
     }
 
     protected virtual void FixedUpdate()
@@ -55,7 +58,7 @@ public class BaseController : MonoBehaviour
 
     private void Movement(Vector2 direction)
     {
-        direction = direction * 5f;
+        direction = direction * statHandler.Speed;
 
         if (knockbackDuration > 0.0f)
         {
@@ -80,10 +83,5 @@ public class BaseController : MonoBehaviour
 
     private void HandleAttackDelay()
     {
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        
     }
 }
