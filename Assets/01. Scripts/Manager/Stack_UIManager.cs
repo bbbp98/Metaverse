@@ -69,7 +69,8 @@ public class Stack_UIManager : MonoBehaviour
 
     public void SetGameOverUI()
     {
-        //scoreUI.SetUI(theStack.Score, theStack.MaxCombo, theStack.BestScore, theStack.BestCombo);
+        gameOverUI.SetUI(theStack.Score, theStack.MaxCombo, theStack.BestScore, theStack.BestCombo);
+        PlayerManager.Instance.AddGold(theStack.Score);
         ChangeState(UIState.GameOver);
     }
 }
