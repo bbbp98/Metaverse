@@ -24,9 +24,14 @@ public class FadeManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void FadeIn()
     {
         StartCoroutine(Fade(0));
+    }
+
+    public void FadeOut()
+    {
+        StartCoroutine(Fade(1));
     }
 
     public void FadeToScene(SceneType sceneType)

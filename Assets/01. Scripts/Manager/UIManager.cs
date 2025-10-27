@@ -11,19 +11,14 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
 
-    public void SetGold()
+    public void SetGold(int currentGold)
     {
-        if (coinText == null)
-            return;
-        coinText.text = PlayerManager.Instance.Gold.ToString();
+        if (coinText != null)
+            coinText.text = currentGold.ToString();
     }
+
 }
