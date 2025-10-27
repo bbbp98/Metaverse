@@ -7,9 +7,28 @@ public class NPCPortal : NPCBase
 {
     public SceneType sceneType;
 
-    public override void Interact()
+    //public override void Interact()
+    //{
+    //    if (isInteracting)
+    //        return;
+
+    //    //isInteracting = true;
+
+    //    //UIManager.Instance.StartDialogue(gameObject.name, dialogues, OnChoiceSelected);
+    //}
+
+    protected override void OnChoiceSelected(bool accepted)
     {
-        GameManager.Instance.TransitionToScene(sceneType);
+        if (accepted)
+        {
+            GameManager.Instance.TransitionToScene(sceneType);
+        }
+        else
+        {
+            Debug.Log("대화 종료");
+        }
+
+        isInteracting = false;
     }
 
     protected override void OnTriggerStay2D(Collider2D collision)
