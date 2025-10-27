@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LizardRunGameManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class LizardRunGameManager : MonoBehaviour
 
     private bool isPlaying = false;
 
+    private float fScore = 0f;
     private int score = 0;
     private int bestScore = 0;
     private float scorePerSecond = 10f;
@@ -16,7 +18,10 @@ public class LizardRunGameManager : MonoBehaviour
 
     public TextMeshProUGUI bestScoreText;
     public TextMeshProUGUI nowScoreText;
-    
+
+    public GameObject panel;
+    public Button startButton;
+    public Button exitButton;
 
     private void Awake()
     {
@@ -26,6 +31,9 @@ public class LizardRunGameManager : MonoBehaviour
             Destroy(gameObject);
 
         bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
+
+        startButton.onClick.AddListener(StartGame);
+        exitButton.onClick.AddListener(ExitGame);
     }
 
     private void Start()
@@ -37,9 +45,9 @@ public class LizardRunGameManager : MonoBehaviour
     {
         if (isPlaying)
         {
-            score += Mathf.FloorToInt(scorePerSecond * Time.deltaTime);
+            fScore += scorePerSecond * Time.deltaTime;
         }
-
+        score = (int)fScore;
         SetScore(score);
     }
 
@@ -48,6 +56,7 @@ public class LizardRunGameManager : MonoBehaviour
         if (isPlaying) return;
 
         isPlaying = true;
+        panel.SetActive(false);
 
         ObstacleManager.Instance.StartSpawning();
         Lizard.Instance.EnableControl();
@@ -69,5 +78,10 @@ public class LizardRunGameManager : MonoBehaviour
     public void SetScore(int score)
     {
         nowScoreText.text = score.ToString();
+    }
+
+    public void ExitGame()
+    {
+        GameManager.Instance.TransitionToScene(SceneType.MainScene);
     }
 }

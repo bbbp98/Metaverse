@@ -19,6 +19,7 @@ public class Lizard : MonoBehaviour
 
     private bool isPlaying = false;
 
+
     private void Awake()
     {
         if (Instance == null)
@@ -28,6 +29,7 @@ public class Lizard : MonoBehaviour
 
         animator = GetComponentInChildren<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
@@ -55,6 +57,7 @@ public class Lizard : MonoBehaviour
     public void EnableControl()
     {
         isPlaying = true;
+        animator.SetBool("IsMove", true);
     }
 
     public void DisableControl()
@@ -82,6 +85,8 @@ public class Lizard : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!isPlaying) return;
+
         Vector3 velocity = _rigidbody.velocity;
         velocity.x = forwardSpeed;
 
