@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00. Scenes/StackScene.unity
     guid: bfd194a57639373458f7f023633463f6
+  - enabled: 1
+    path: Assets/00. Scenes/LizardRunScene.unity
+    guid: 8818e9caf168db34f8e8502b0b3a1520
   m_configObjects: {}

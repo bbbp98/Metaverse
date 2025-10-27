@@ -6,4 +6,5 @@ public enum SceneType
 {
     MainScene,
     StackScene,
+    LizardRunScene,
 }

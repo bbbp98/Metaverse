@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -29,8 +30,18 @@ public class CameraFollow : MonoBehaviour
 
         Vector3 pos = transform.position;
         pos = target.position + offset;
-        float clampX = Mathf.Clamp(pos.x, minPosition.x, maxposition.x);
-        float clampY = Mathf.Clamp(pos.y, minPosition.y, maxposition.y);
+        float clampX = pos.x;
+        float clampY = pos.y;
+
+        if (SceneManager.GetActiveScene().name == SceneType.LizardRunScene.ToString())
+        {
+            clampY = 0f;
+        }
+        else
+        {
+            clampX = Mathf.Clamp(pos.x, minPosition.x, maxposition.x);
+            clampY = Mathf.Clamp(pos.y, minPosition.y, maxposition.y);
+        }
 
         Vector3 smoothPos = Vector3.SmoothDamp(transform.position, pos, ref velocity, smoothSpeed);
 
