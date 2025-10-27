@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
 
     public class PlayerData
     {
-        public int Gold;
+        [SerializeField] public int Gold;
     }
 
     public PlayerData playerData = new PlayerData();
@@ -17,6 +17,7 @@ public class PlayerManager : MonoBehaviour
     private const string GoldKey = "M_Gold";
 
     public event Action<int> OnGoldChanged;
+
 
     private void Awake()
     {
@@ -55,5 +56,10 @@ public class PlayerManager : MonoBehaviour
         PlayerPrefs.SetInt(GoldKey, playerData.Gold);
         OnGoldChanged?.Invoke(playerData.Gold);
         return true;
+    }
+
+    public PlayerData GetPlayerData()
+    {
+        return playerData;
     }
 }

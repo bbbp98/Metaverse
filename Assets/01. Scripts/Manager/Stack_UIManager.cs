@@ -59,7 +59,7 @@ public class Stack_UIManager : MonoBehaviour
 
     public void OnClickEnd()
     {
-        FadeManager.Instance.FadeToScene(SceneType.MainScene);
+        GameManager.Instance.TransitionToScene(SceneType.MainScene);
     }
 
     public void UpdateScore()

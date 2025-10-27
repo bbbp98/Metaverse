@@ -9,7 +9,7 @@ public class NPCPortal : NPCBase
 
     public override void Interact()
     {
-        GameManager.Instance.LoadScene(sceneType);
+        GameManager.Instance.TransitionToScene(sceneType);
     }
 
     protected override void OnTriggerStay2D(Collider2D collision)

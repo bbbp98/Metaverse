@@ -24,45 +24,32 @@ public class FadeManager : MonoBehaviour
         }
     }
 
-    public void FadeIn()
+    public IEnumerator FadeIn()
     {
-        StartCoroutine(Fade(0));
+        Color color = fadeImage.color;
+        color.a = 1f;
+        fadeImage.color = color;
+        yield return Fade(0);
+        fadeImage.gameObject.SetActive(false);
     }
 
-    public void FadeOut()
+    public IEnumerator FadeOut()
     {
-        StartCoroutine(Fade(1));
-    }
-
-    public void FadeToScene(SceneType sceneType)
-    {
-        gameObject.SetActive(true);
-        StartCoroutine(FadeRoutine(sceneType));
-    }
-
-    private IEnumerator FadeRoutine(SceneType sceneType)
-    {
-        // fade out
-        yield return StartCoroutine(Fade(1));
-
-        // load scene
-        SceneManager.LoadScene(sceneType.ToString());
-
-        // fade in
-        yield return StartCoroutine(Fade(0));
-
-        gameObject.SetActive(false);
+        fadeImage.gameObject.SetActive(true);
+        Color color = fadeImage.color;
+        color.a = 0f;
+        fadeImage.color = color;
+        yield return Fade(1);
     }
 
     /// <summary>
     /// value 0: fade-in, 1: fade-out
     /// </summary>
-    public IEnumerator Fade(float targetAlpha)
+    private IEnumerator Fade(float targetAlpha)
     {
         if (fadeImage == null)
         {
             Debug.Log("fade image is null");
-            gameObject.SetActive(false);
             yield break;
         }
 

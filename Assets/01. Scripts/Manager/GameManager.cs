@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,21 +37,32 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        FadeManager.Instance.FadeIn();
-        //uiManager.UpdateUI();
+        StartCoroutine(FadeManager.Instance.FadeIn());
+        AudioManager.Instance.PlayBgm(currentLevel);
+        UIManager.Instance.SetGold(PlayerManager.Instance.GetPlayerData().Gold);
     }
 
-    public void LoadScene(SceneType sceneType)
+    public void TransitionToScene(SceneType sceneType)
     {
         currentLevel = sceneType;
-        FadeManager.Instance.FadeToScene(currentLevel);
+        StartCoroutine(SceneTransitonCoroutine(currentLevel));
     }
+
+    private IEnumerator SceneTransitonCoroutine(SceneType sceneType)
+    {
+        yield return FadeManager.Instance.FadeOut();
+        SceneManager.LoadScene(sceneType.ToString());
+        AudioManager.Instance.PlayBgm(sceneType);
+        if (currentLevel == SceneType.StackScene)
+            UIManager.Instance.gameObject.SetActive(false);
+        else
+            UIManager.Instance.gameObject.SetActive(true);
+        yield return FadeManager.Instance.FadeIn();
+    }
+
 
     private void UpdateGoldUI(int currentGold)
     {
-        if (currentLevel == SceneType.StackScene)
-            return;
-
         if (UIManager.Instance != null)
             UIManager.Instance.SetGold(currentGold);
     }

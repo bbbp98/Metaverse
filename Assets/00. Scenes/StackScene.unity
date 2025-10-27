@@ -9064,6 +9064,7 @@ MonoBehaviour:
   originBlock: {fileID: 5053677776177514468, guid: 119f94d4092f5034f948cc92cc6eb1ab, type: 3}
   prevColor: {r: 0, g: 0, b: 0, a: 0}
   nextColor: {r: 0, g: 0, b: 0, a: 0}
+  audioClip: {fileID: 8300000, guid: 282a32e743e37eb449e89302ce8ecb44, type: 3}
 --- !u!1 &1947347621
 GameObject:
   m_ObjectHideFlags: 0

@@ -45,6 +45,8 @@ public class TheStack : MonoBehaviour
 
     private bool isGameOver = true;
 
+    public AudioClip audioClip;
+
     private void Start()
     {
         if (originBlock == null)
@@ -128,6 +130,7 @@ public class TheStack : MonoBehaviour
 
     private bool PlaceBlock()
     {
+        AudioManager.Instance.PlaySfx(audioClip);
         Vector3 lastPosition = lastBlock.position;
 
         if (isMovingX)
