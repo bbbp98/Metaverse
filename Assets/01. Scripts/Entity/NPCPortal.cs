@@ -7,6 +7,11 @@ public class NPCPortal : NPCBase
 {
     public SceneType sceneType;
 
+    public override void Interact()
+    {
+        base.Interact();
+    }
+
     protected override void OnChoiceSelected(bool accepted)
     {
         if (accepted)

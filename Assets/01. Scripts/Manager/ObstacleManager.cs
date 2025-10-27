@@ -68,11 +68,7 @@ public class ObstacleManager : MonoBehaviour
         {
             float spawnY = -3f;  // 디노런의 새 역할 을 할 장애물은 y값 설정 필요
             if (obstacle.name.Contains("Obstacle_Imp"))
-            {
                 spawnY = UnityEngine.Random.Range(-3f, 0f);
-                Debug.Log("Spawn imp");
-
-            }
             float gap = UnityEngine.Random.Range(minSpawnGap, maxSpawnGap);
             obstacle.transform.position = new Vector3(lastSpawnX + gap, spawnY, 0);
             obstacle.SetActive(true);

@@ -41,10 +41,7 @@ public class FadeManager : MonoBehaviour
         fadeImage.color = color;
         yield return Fade(1);
     }
-
-    /// <summary>
-    /// value 0: fade-in, 1: fade-out
-    /// </summary>
+    
     private IEnumerator Fade(float targetAlpha)
     {
         if (fadeImage == null)
@@ -52,7 +49,6 @@ public class FadeManager : MonoBehaviour
             Debug.Log("fade image is null");
             yield break;
         }
-
 
         Color color = fadeImage.color;
         float startAlpha = color.a;
