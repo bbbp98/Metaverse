@@ -101,7 +101,8 @@ public class LizardRunGameManager : MonoBehaviour
 
         ObstacleManager.Instance.StopSpawning();
         Lizard.Instance.DisableControl();
-
+        PlayerPrefs.SetInt(BestScoreKey, currentScore);
+        PlayerManager.Instance.AddGold(currentScore);
         gameOverUI.SetActive(true);
     }
 
