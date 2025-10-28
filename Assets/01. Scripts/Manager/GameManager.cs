@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         yield return FadeManager.Instance.FadeOut();
         SceneManager.LoadScene(sceneType.ToString());
         AudioManager.Instance.PlayBgm(sceneType);
-        if (currentLevel == SceneType.StackScene)
+        if (currentLevel == SceneType.StackScene || currentLevel == SceneType.LizardRunScene)
             UIManager.Instance.gameObject.SetActive(false);
         else
             UIManager.Instance.gameObject.SetActive(true);

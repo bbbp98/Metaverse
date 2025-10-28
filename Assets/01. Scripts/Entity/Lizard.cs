@@ -10,8 +10,8 @@ public class Lizard : MonoBehaviour
     Animator animator;
     Rigidbody2D _rigidbody;
 
-    [SerializeField] private float forwardSpeed = 3f;
-    [SerializeField] private float JumpForce = 3f;
+    [SerializeField] private float forwardSpeed = 5f;
+    [SerializeField] private float JumpForce = 8f;
 
     public bool isGodMode = false;
 
@@ -52,6 +52,16 @@ public class Lizard : MonoBehaviour
                 Jump_Down(JumpForce);
             }
         }
+    }
+
+    public void SetMoveSpeed(float speed)
+    {
+        forwardSpeed = speed;
+    }
+
+    public float GetMoveSpeed()
+    {
+        return forwardSpeed;
     }
 
     public void EnableControl()
@@ -102,7 +112,19 @@ public class Lizard : MonoBehaviour
         {
             Debug.Log("game over");
             animator.SetBool("IsHit", true);
-            Time.timeScale = 0f;
+
+            _rigidbody.gravityScale = 0f;
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+
+            LizardRunGameManager.Instance.GameOver();
         }
+    }
+
+    public void Unfreeze()
+    {
+        _rigidbody.constraints = RigidbodyConstraints2D.None;
+        _rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        _rigidbody.gravityScale = 1f;
     }
 }

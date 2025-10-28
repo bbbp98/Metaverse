@@ -11,17 +11,24 @@ public class LizardRunGameManager : MonoBehaviour
     private bool isPlaying = false;
 
     private float fScore = 0f;
-    private int score = 0;
+    private int currentScore = 0;
     private int bestScore = 0;
     private float scorePerSecond = 10f;
+    private int nextSpeedUpScore = 100;
+    private int speedUpInterval = 100;
     private const string BestScoreKey = "M_LizardRun_BestScore";
 
     public TextMeshProUGUI bestScoreText;
     public TextMeshProUGUI nowScoreText;
 
-    public GameObject panel;
+    public GameObject gameStartUI;
     public Button startButton;
     public Button exitButton;
+    public GameObject gameOverUI;
+
+    [SerializeField] private Lizard player;
+    private float speedIncrease = 1f;
+    private float maxSpeed = 15f;
 
     private void Awake()
     {
@@ -38,7 +45,9 @@ public class LizardRunGameManager : MonoBehaviour
 
     private void Start()
     {
+        gameStartUI.SetActive(true);
         SetBestScore(bestScore);
+        SetScore(0);
     }
 
     private void Update()
@@ -47,8 +56,30 @@ public class LizardRunGameManager : MonoBehaviour
         {
             fScore += scorePerSecond * Time.deltaTime;
         }
-        score = (int)fScore;
-        SetScore(score);
+
+        currentScore = (int)fScore;
+        SetScore(currentScore);
+
+        if (currentScore % 100 == 0)
+            CheckSpeedUp(currentScore);
+    }
+
+    private void CheckSpeedUp(int score)
+    {
+        if (score >= nextSpeedUpScore)
+        {
+            IncreasePlayerSpeed();
+            nextSpeedUpScore += speedUpInterval;
+        }
+    }
+
+    private void IncreasePlayerSpeed()
+    {
+        float playerSpeed = player.GetMoveSpeed();
+        playerSpeed += speedIncrease;
+        playerSpeed = Mathf.Min(playerSpeed, maxSpeed);
+        player.SetMoveSpeed(playerSpeed);
+        Debug.Log("speed up");
     }
 
     public void StartGame()
@@ -56,7 +87,7 @@ public class LizardRunGameManager : MonoBehaviour
         if (isPlaying) return;
 
         isPlaying = true;
-        panel.SetActive(false);
+        gameStartUI.SetActive(false);
 
         ObstacleManager.Instance.StartSpawning();
         Lizard.Instance.EnableControl();
@@ -68,6 +99,8 @@ public class LizardRunGameManager : MonoBehaviour
 
         ObstacleManager.Instance.StopSpawning();
         Lizard.Instance.DisableControl();
+
+        gameOverUI.SetActive(true);
     }
 
     public void SetBestScore(int score)
@@ -83,5 +116,12 @@ public class LizardRunGameManager : MonoBehaviour
     public void ExitGame()
     {
         GameManager.Instance.TransitionToScene(SceneType.MainScene);
+    }
+
+    public void RestartGame()
+    {
+        GameManager.Instance.TransitionToScene(SceneType.LizardRunScene);
+        player.Unfreeze();
+        gameOverUI.SetActive(false);
     }
 }

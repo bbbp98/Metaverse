@@ -48,7 +48,9 @@ public class UIManager : MonoBehaviour
         if (!dialoguePanel.activeSelf || isChoicePhase)
             return;
 
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
+        bool inputPressed = Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0);
+
+        if (inputPressed)
         {
             if (isTyping)
             {
@@ -72,12 +74,12 @@ public class UIManager : MonoBehaviour
     public void StartDialogue(string NpcName, List<string> sentences, Action<bool> onChoiceCallback)
     {
         NPCNameText.text = NpcName;
+        onChoiceSelected = onChoiceCallback;
 
         dialogueQueue.Clear();
         foreach (var s in sentences)
             dialogueQueue.Enqueue(s);
 
-        onChoiceSelected = onChoiceCallback;
         dialoguePanel.SetActive(true);
         choicePanel.SetActive(false);
 
@@ -93,8 +95,10 @@ public class UIManager : MonoBehaviour
         }
 
         string sentence = dialogueQueue.Dequeue();
+
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
+
         typingCoroutine = StartCoroutine(TypeTextEffect(sentence));
     }
 
