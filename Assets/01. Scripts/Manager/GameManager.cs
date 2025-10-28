@@ -51,12 +51,15 @@ public class GameManager : MonoBehaviour
     private IEnumerator SceneTransitonCoroutine(SceneType sceneType)
     {
         yield return FadeManager.Instance.FadeOut();
+
         SceneManager.LoadScene(sceneType.ToString());
         AudioManager.Instance.PlayBgm(sceneType);
+
         if (currentLevel == SceneType.StackScene || currentLevel == SceneType.LizardRunScene)
             UIManager.Instance.gameObject.SetActive(false);
         else
             UIManager.Instance.gameObject.SetActive(true);
+
         yield return FadeManager.Instance.FadeIn();
     }
 

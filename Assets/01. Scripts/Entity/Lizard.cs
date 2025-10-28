@@ -16,9 +16,12 @@ public class Lizard : MonoBehaviour
     public bool isGodMode = false;
 
     private const string ObstacleTag = "Obstacle";
+    private const string BackgroundTag = "Background";
 
     private bool isPlaying = false;
 
+    public AudioClip jumpSfx;
+    public AudioClip hitSfx;
 
     private void Awake()
     {
@@ -77,6 +80,7 @@ public class Lizard : MonoBehaviour
 
     private void Jump(float force)
     {
+        AudioManager.Instance.PlaySfx(jumpSfx);
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0f);
         _rigidbody.AddForce(Vector2.up * force, ForceMode2D.Impulse);
     }
@@ -110,6 +114,8 @@ public class Lizard : MonoBehaviour
 
         if (collision.gameObject.CompareTag(ObstacleTag))
         {
+            AudioManager.Instance.PlaySfx(hitSfx);
+
             Debug.Log("game over");
             animator.SetBool("IsHit", true);
 
@@ -118,6 +124,8 @@ public class Lizard : MonoBehaviour
             _rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
 
             LizardRunGameManager.Instance.GameOver();
+
+            return;
         }
     }
 

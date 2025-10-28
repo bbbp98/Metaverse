@@ -26,6 +26,7 @@ public class LizardRunGameManager : MonoBehaviour
     public Button exitButton;
     public GameObject gameOverUI;
 
+    public AudioClip speedUpSfx;
     [SerializeField] private Lizard player;
     private float speedIncrease = 1f;
     private float maxSpeed = 15f;
@@ -45,6 +46,7 @@ public class LizardRunGameManager : MonoBehaviour
 
     private void Start()
     {
+        player.Unfreeze();
         gameStartUI.SetActive(true);
         SetBestScore(bestScore);
         SetScore(0);
@@ -75,6 +77,7 @@ public class LizardRunGameManager : MonoBehaviour
 
     private void IncreasePlayerSpeed()
     {
+        AudioManager.Instance.PlaySfx(speedUpSfx);
         float playerSpeed = player.GetMoveSpeed();
         playerSpeed += speedIncrease;
         playerSpeed = Mathf.Min(playerSpeed, maxSpeed);
@@ -121,7 +124,6 @@ public class LizardRunGameManager : MonoBehaviour
     public void RestartGame()
     {
         GameManager.Instance.TransitionToScene(SceneType.LizardRunScene);
-        player.Unfreeze();
         gameOverUI.SetActive(false);
     }
 }

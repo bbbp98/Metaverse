@@ -31,6 +31,7 @@ public class AudioManager : MonoBehaviour
                 clip = mainBgm;
                 break;
             case SceneType.StackScene:
+            case SceneType.LizardRunScene:
                 clip = battleBgm;
                 break;
         }

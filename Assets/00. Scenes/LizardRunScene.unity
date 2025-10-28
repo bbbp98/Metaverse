@@ -591,6 +591,9 @@ MonoBehaviour:
   forwardSpeed: 5
   JumpForce: 8
   isGodMode: 0
+  jumpSfx: {fileID: 8300000, guid: 8ad1fdacb9d26be46972ba035ef253b8, type: 3}
+  jumpLandSfx: {fileID: 8300000, guid: 9fa6388254b6dde44a1d97b8c8681022, type: 3}
+  hitSfx: {fileID: 8300000, guid: 5843f8807b077db40bd6ac16f182d8f2, type: 3}
 --- !u!1 &352912889
 GameObject:
   m_ObjectHideFlags: 0
@@ -4360,6 +4363,7 @@ MonoBehaviour:
   startButton: {fileID: 8063539}
   exitButton: {fileID: 2006376194}
   gameOverUI: {fileID: 644790983}
+  speedUpSfx: {fileID: 8300000, guid: e548f10b29a3845438a22a71f8ffbd1d, type: 3}
   player: {fileID: 343764465}
 --- !u!4 &1041001189
 Transform:
