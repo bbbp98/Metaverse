@@ -291,6 +291,8 @@ MonoBehaviour:
   - {fileID: 5005513937467194573, guid: 735c47f4dbcc60f45af216da81c37a1f, type: 3}
   - {fileID: 4151653085908221744, guid: eb1187a804fe43845a2e197d1bfd19f7, type: 3}
   - {fileID: 6755545552696427702, guid: 22e628282ff3acd4a9021b38cd54f9f8, type: 3}
+  - {fileID: 6530562372923340775, guid: 505dd3b8fb7a73c49a1b48bd64c12a5a, type: 3}
+  - {fileID: 1828812176448455461, guid: 37879fe19db6b7e4191b2c1dedce3394, type: 3}
   poolSize: 10
   spawnDistance: 20
   minSpawnGap: 10
@@ -512,6 +514,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1533938530}
+  - {fileID: 895040558}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &343764463
@@ -588,11 +591,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f2fa65ff8d52440ad7610bb3525a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGodMode: 0
   forwardSpeed: 5
   JumpForce: 8
-  isGodMode: 0
+  groundcheck: {fileID: 895040558}
+  groundCheckDistance: 0.1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  coyoteTime: 0.1
   jumpSfx: {fileID: 8300000, guid: 8ad1fdacb9d26be46972ba035ef253b8, type: 3}
-  jumpLandSfx: {fileID: 8300000, guid: 9fa6388254b6dde44a1d97b8c8681022, type: 3}
   hitSfx: {fileID: 8300000, guid: 5843f8807b077db40bd6ac16f182d8f2, type: 3}
 --- !u!1 &352912889
 GameObject:
@@ -1732,9 +1740,9 @@ GameObject:
   - component: {fileID: 841959461}
   - component: {fileID: 841959460}
   - component: {fileID: 841959459}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Background
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3048,6 +3056,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 50, y: 30}
   m_EdgeRadius: 0
+--- !u!1 &895040557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 895040558}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &895040558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895040557}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.47, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 343764462}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &895256718
 GameObject:
   m_ObjectHideFlags: 0
@@ -3060,9 +3099,9 @@ GameObject:
   - component: {fileID: 895256722}
   - component: {fileID: 895256721}
   - component: {fileID: 895256720}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Background
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4364,7 +4403,6 @@ MonoBehaviour:
   exitButton: {fileID: 2006376194}
   gameOverUI: {fileID: 644790983}
   speedUpSfx: {fileID: 8300000, guid: e548f10b29a3845438a22a71f8ffbd1d, type: 3}
-  player: {fileID: 343764465}
 --- !u!4 &1041001189
 Transform:
   m_ObjectHideFlags: 0
@@ -5054,9 +5092,9 @@ GameObject:
   - component: {fileID: 1343109517}
   - component: {fileID: 1343109516}
   - component: {fileID: 1343109515}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Background
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6252,9 +6290,9 @@ GameObject:
   - component: {fileID: 1409336589}
   - component: {fileID: 1409336588}
   - component: {fileID: 1409336587}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Background
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8901,9 +8939,9 @@ GameObject:
   - component: {fileID: 2085831105}
   - component: {fileID: 2085831104}
   - component: {fileID: 2085831106}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Background
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

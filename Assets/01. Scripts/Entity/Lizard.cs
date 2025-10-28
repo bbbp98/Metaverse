@@ -10,16 +10,27 @@ public class Lizard : MonoBehaviour
     Animator animator;
     Rigidbody2D _rigidbody;
 
+    public bool isGodMode = false;
+
+    [Header("Movement Settings")]
     [SerializeField] private float forwardSpeed = 5f;
     [SerializeField] private float JumpForce = 8f;
 
-    public bool isGodMode = false;
+    [Header("Ground Check Settings")]
+    [SerializeField] private Transform groundcheck;
+    [SerializeField] private float groundCheckDistance = 0.1f;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float coyoteTime = 0.1f;
+
+    private float lastGroundedTime;
+    private bool isGrounded;
 
     private const string ObstacleTag = "Obstacle";
-    private const string BackgroundTag = "Background";
+    private const string BackgroundTag = "BackgroundTag";
 
     private bool isPlaying = false;
 
+    [Header("Audio")]
     public AudioClip jumpSfx;
     public AudioClip hitSfx;
 
@@ -40,8 +51,10 @@ public class Lizard : MonoBehaviour
     {
         if (!isPlaying) return;
 
+        UpdateGroundCheck();
+
         // handle input
-        if (IsGround())
+        if (CanJump())
         {
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
             {
@@ -92,9 +105,24 @@ public class Lizard : MonoBehaviour
         _rigidbody.AddForce(Vector2.up * force, ForceMode2D.Impulse);
     }
 
-    private bool IsGround()
+    private void UpdateGroundCheck()
     {
-        return Mathf.Abs(_rigidbody.velocity.y) < 0.01f;
+        RaycastHit2D hit = Physics2D.Raycast(groundcheck.position, Vector2.down, groundCheckDistance, groundLayer);
+
+        if (hit.collider != null)
+        {
+            isGrounded = true;
+            lastGroundedTime = Time.time;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+    }
+
+    private bool CanJump()
+    {
+        return Time.time - lastGroundedTime <= coyoteTime;
     }
 
     private void FixedUpdate()

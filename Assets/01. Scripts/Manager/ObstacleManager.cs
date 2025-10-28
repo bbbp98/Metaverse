@@ -13,7 +13,7 @@ public class ObstacleManager : MonoBehaviour
     public int poolSize = 10; // object pool size
     public float spawnDistance = 10f;
     public float minSpawnGap = 40f;
-    public float maxSpawnGap = 100f;
+    public float maxSpawnGap = 90f;
     public float recycleXOffset = -10f;
 
     //[SerializeField]private Transform player;
