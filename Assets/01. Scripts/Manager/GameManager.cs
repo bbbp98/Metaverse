@@ -7,10 +7,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    //[Header("Managers")]
-    //public UIManager uiManager;
-    //public FadeManager fadeManager;
-
     [Header("Game State")]
     public SceneType currentLevel;
 
@@ -62,7 +58,6 @@ public class GameManager : MonoBehaviour
 
         yield return FadeManager.Instance.FadeIn();
     }
-
 
     private void UpdateGoldUI(int currentGold)
     {
